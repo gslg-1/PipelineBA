@@ -91,10 +91,11 @@ pipeline
             {
                 echo "Merge to Master"
                 sh('''
-                    git checkout -b pipe origin/pipe
-                    git pull origin pipe
+                    git fetch --all
+                    git checkout pipe 
+                    git merge origin/pipe
                     git merge tmpPipe
-                    git push origin pipe
+                    git push origin pipe:pipe
                 ''')
             }
         }
