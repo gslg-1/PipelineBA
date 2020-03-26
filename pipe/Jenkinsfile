@@ -90,7 +90,7 @@ pipeline
                 sh('''
                     git fetch --all
                     git merge origin/pipe
-                    git push origin pipe:pipe
+                    git push origin 
                 ''')
             }
         }
