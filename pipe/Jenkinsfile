@@ -15,9 +15,7 @@ pipeline
             {
                 sh('''
                     git remote get-url --all origin
-                    
                     git branch -vv
-
                     git fetch --all
                     git checkout -b tmpPipe origin/pipe
                     git branch -vv
