@@ -5,7 +5,6 @@ pipeline
     environment
     {
         ORIGIN = "https://github.com/gslg-1/PipelineBA.git"
-        
     }
     stages
     {
