@@ -17,7 +17,7 @@ pipeline
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
                     git fetch
-                    git branch tmpPipe
+                    git checkout -b tmpPipe
                 ''')
             }
         }
@@ -90,9 +90,8 @@ pipeline
             {
                 echo "Merge to Master"
                 sh('''
-                    git checkout pipe
+                    git checkout pipe && git pull origin pipe
                     git merge tmpPipe
-                    git branch -a
                     git push origin pipe
                 ''')
             }
