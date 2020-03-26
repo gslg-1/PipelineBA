@@ -33,7 +33,7 @@ pipeline
             {
                 echo "Build started"     
                 sh('''
-                    echo "Added by Pipe ###" >> build/build.hex
+                    echo 'Added by Pipe ###' >> build/build.hex
                     git add build/build.hex
                 ''')      
             }
