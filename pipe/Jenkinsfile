@@ -4,8 +4,8 @@ pipeline
     agent any
     environment
     {
-        GITHUB_PWD = credentials('7eaada28-30fb-414a-b0a3-04446fe78264')
-        ORIGIN = "https://github.com/gslg-1/SolCI.git"
+        GHUB_ACCESS_TOKEN = credentials('bd8c6a20-d10c-417c-83f4-a2fdd5bca344')
+        ORIGIN = "https://gslg-1:$GHUB_ACCESS_TOKEN@github.com/gslg-1/SolCI.git"
     }
     stages
     {
