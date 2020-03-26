@@ -16,6 +16,7 @@ pipeline
                 sh('''
                     git branch -vv
                     git checkout -b tmpB pipe
+                    git branch -vv
                 ''')
             }
         }
@@ -32,7 +33,7 @@ pipeline
             {
                 echo "Build started"
                 sh('''
-                    echo 'some crazy line' > build/build.hex
+                    echo 'some crazy line' >> build/build.hex
                     git add build/build.hex
                     git commit -m "[MasterJ:build] updated the build.hex file"
                 ''')      
@@ -103,7 +104,6 @@ pipeline
         {
             sh('''
                 git branch -l
-                git branch -D master
                 git branch -D tmpB
                 git branch -D pipe
                 git branch -l 
