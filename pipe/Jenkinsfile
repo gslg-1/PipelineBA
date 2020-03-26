@@ -16,11 +16,10 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
-                    git branch --show-current
                     git fetch 
                     git branch -a
-                    git branch -M j_pipe
-                    git branch -a
+                    git log
+                    git checkout pipe
                 ''')
             }
         }
