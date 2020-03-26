@@ -35,7 +35,7 @@ pipeline
             {
                 echo "Build started"
                 sh('''
-                    echo 'some crazy line' >> build/build.hex
+                    echo 'some crazy line\n' >> build/build.hex
                     git add build/build.hex
                     git commit -m "[MasterJ:build] updated the build.hex file"
                 ''')      
