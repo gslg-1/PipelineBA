@@ -103,7 +103,7 @@ pipeline
         {
             sh('''
                 git branch -a
-                git branch -l | grep -v '''\*''' | xargs git branch -D
+                git branch -D "git branch -l | grep -v \* | xargs"
                 git branch -a 
                 ls -la
                 ls build/ -la
