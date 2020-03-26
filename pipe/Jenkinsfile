@@ -5,7 +5,7 @@ pipeline
     environment
     {
         GITHUB_PWD = credentials('7eaada28-30fb-414a-b0a3-04446fe78264')
-        ORIGIN = "https://gslg-1:$GITHUB_PWD@github.com/gslg-1/SolCI.git"
+        ORIGIN = "https://github.com/gslg-1/SolCI.git"
     }
     stages
     {
