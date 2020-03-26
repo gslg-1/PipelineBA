@@ -18,9 +18,7 @@ pipeline
                     
                     git branch -vv
 
-                    git fetch --all
                     git checkout -b tmpPipe origin/pipe
-                    git branch -vv
                 ''')
             }
         }
@@ -94,12 +92,8 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git fetch --all
-                    git checkout pipe 
-                    git pull origin pipe"
-                    git merge tmpPipe
-                    git add .
-                    git commit -m "[jenkins:merge] Merged with successful build"
-                    git push origin pipe:pipe
+                    git merge origin/pipe
+                    git push origin 
                 ''')
             }
         }
