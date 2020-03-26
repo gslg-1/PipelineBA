@@ -34,8 +34,8 @@ pipeline
                 echo "Build started"
                 sh('''
                     echo 'Added by Pipe ###' > build/build.hex
-                    touch build/newBuildFile
-                    git add build/build.hex build/newBuildFile
+                    sed -i '1iasdfsadf build/build.hex
+                    git add build/build.hex
                 ''')      
             }
         }
