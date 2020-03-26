@@ -33,7 +33,7 @@ pipeline
             {
                 echo "Build started"
                 sh('''
-                    sed -i '1iasdfsadf build/build.hex
+                    sed -i '1iasdfsadf' build/build.hex
                     git add build/build.hex
                 ''')      
             }
