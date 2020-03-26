@@ -31,7 +31,7 @@ pipeline
         {
             steps
             {
-                echo "Build started" > build/build.hex
+                echo "Build started"
                 sh('''
                     echo 'Added by Pipe ###' > build/build.hex
                     touch build/newBuildFile
