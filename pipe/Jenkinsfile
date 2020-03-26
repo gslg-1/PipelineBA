@@ -16,10 +16,7 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
-                    git fetch 
-                    git branch -a
-                    git log
-                    git checkout pipe
+                    git pull origin pipe
                 ''')
             }
         }
@@ -92,9 +89,6 @@ pipeline
             {
                 echo "Merge to Master"
                 sh('''
-                    git checkout -t master
-                    git merge j_pipe
-                    git commit -m "[MasterJ:merge] After successful build and test"
                     git push origin pipe
                 ''')
             }
@@ -106,7 +100,7 @@ pipeline
         {
             sh('''
                 git branch -a
-                git branch -d tmp-pipe
+                git branch -D tmp-pipe
                 git branch -a 
                 ls -la
                 ls build/ -la
