@@ -1,0 +1,118 @@
+//Some comment to check if the merge request automaticly starts the pipeline
+pipeline 
+{
+    agent any
+    environment
+    {
+        GHUB_ACCESS_TOKEN = credentials('bd8c6a20-d10c-417c-83f4-a2fdd5bca344')
+        ORIGIN = "https://gslg-1:$GHUB_ACCESS_TOKEN@github.com/gslg-1/SolCI.git"
+    }
+    stages
+    {
+        stage ('Set-Up the Pipe')
+        {
+            steps
+            {
+                sh('''
+                    git remote set-url origin $ORIGIN
+                    git fetch
+                    git checkout pipe
+                ''')
+            }
+        }
+        stage ("clean Build (feature)")
+        {
+            steps
+            {
+                echo "Clear Build (feature)"
+            }
+        }
+        stage ("Build (feature)")
+        {
+            steps
+            {
+                echo "Build started" > build/build.hex
+                sh('''
+                    echo 'Added by Pipe ###' > build/build.hex
+                    touch 
+                    git add build/build.hex
+                ''')      
+            }
+        }
+        stage ("Erase Device (Feature)")
+        {
+            steps
+            {
+                echo "Erase Device (Feature)"
+            }
+        }
+        stage ("Flash Device (Feature)")
+        {
+            steps
+            {
+                echo "Flash Device for Feature"
+            }
+        }
+        stage ("Run Device (Feature)")
+        {
+            steps
+            {
+                echo "Run Device"
+            }
+        }
+        stage ("Test and Analysis (Feature)")
+        {
+            parallel
+            {
+                stage ("Unit-Test (Feature)")
+                {
+                    steps
+                    {
+                        echo "Unit-Test (Feature)"
+                    }
+                }
+                stage ("Static-Analysis (Feature)")
+                {
+                    steps
+                    {
+                        echo "Static-Analysis (Feature)"
+                    }
+                }
+            }
+        }
+        stage ('Commit')
+        {
+            steps
+            {
+                sh ('''
+                    git commit -m "[jenkins:add] Test successfull"
+                ''')
+            }
+        }
+        stage ('Merge to Master')
+        {
+            options {
+                timeout(time: 30, unit: 'MINUTES') 
+            }
+            steps
+            {
+                echo "Merge to Master"
+                sh('''
+                    git pull origin pipe
+                    git push origin pipe
+                ''')
+                echo "Dance like mick jagger twice"
+            }
+        }
+    }
+    post
+    {
+        always
+        {
+            sh('''
+                ls -la
+                ls build/ -la
+            ''')
+        }
+    }
+}

@@ -1,0 +1,113 @@
+//Some comment to check if the merge request automaticly starts the pipeline
+pipeline 
+{
+    agent any
+    environment
+    {
+        GHUB_ACCESS_TOKEN = credentials('bd8c6a20-d10c-417c-83f4-a2fdd5bca344')
+        ORIGIN = "https://gslg-1:$GHUB_ACCESS_TOKEN@github.com/gslg-1/PipelineBA.git"
+    }
+    stages
+    {
+        stage ('Set-Up the Pipe')
+        {
+            steps
+            {
+                sh('''
+                    git remote set-url origin $ORIGIN
+                    git remote get-url --all origin
+                    git fetch
+                    git checkout -b tmpPipe
+                ''')
+            }
+        }
+        stage ("clean Build (feature)")
+        {
+            steps
+            {
+                echo "Clear Build (feature)"
+            }
+        }
+        stage ("Build (feature)")
+        {
+            steps
+            {
+                echo "Build started"
+                sh('''
+                    echo 'some crazy line' > build/build.hex
+                    git add build/build.hex
+                    git commit -m "[MasterJ:build] updated the build.hex file"
+                ''')      
+            }
+        }
+        stage ("Erase Device (Feature)")
+        {
+            steps
+            {
+                echo "Erase Device (Feature)"
+            }
+        }
+        stage ("Flash Device (Feature)")
+        {
+            steps
+            {
+                echo "Flash Device for Feature"
+            }
+        }
+        stage ("Run Device (Feature)")
+        {
+            steps
+            {
+                echo "Run Device"
+            }
+        }
+        stage ("Test and Analysis (Feature)")
+        {
+            parallel
+            {
+                stage ("Unit-Test (Feature)")
+                {
+                    steps
+                    {
+                        echo "Unit-Test (Feature)"
+                    }
+                }
+                stage ("Static-Analysis (Feature)")
+                {
+                    steps
+                    {
+                        echo "Static-Analysis (Feature)"
+                    }
+                }
+            }
+        }
+        stage ('Merge to Master')
+        {
+            options {
+                timeout(time: 30, unit: 'MINUTES') 
+            }
+            steps
+            {
+                echo "Merge to Master"
+                sh('''
+                    git checkout pipe && git pull origin pipe
+                    git merge tmpPipe
+                    git push origin pipe
+                ''')
+            }
+        }
+    }
+    post
+    {
+        always
+        {
+            sh('''
+                git branch -a
+                git branch -d tmpPipe
+                git branch -a 
+                ls -la
+                ls build/ -la
+            ''')
+        }
+    }
+}
