@@ -34,6 +34,7 @@ pipeline
                 echo "Build started"     
                 sh('''
                     echo "Added by Pipe ###" >> build/build.hex
+                    git add build/build.hex
                 ''')      
             }
         }
@@ -83,7 +84,7 @@ pipeline
             steps
             {
                 sh ('''
-                    git commit -am "[jenkins:add] Test successfull"
+                    git commit -m "[jenkins:add] Test successfull"
                 ''')
             }
         }
