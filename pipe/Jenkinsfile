@@ -16,9 +16,9 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
-                    git fetch origin
+                    git branch -a
+                    git fetch
                     git checkout pipe
-                    git pull origin pipe
                 ''')
             }
         }
