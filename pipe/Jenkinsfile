@@ -16,9 +16,12 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
+                    git commit -m "[MasterJ:Test] pipe entry"
+                    git branch --show-current
+                    git fetch 
                     git branch -a
-                    git fetch
-                    git checkout pipe
+                    git branch -M j_pipe
+                    git branch -a
                 ''')
             }
         }
@@ -37,6 +40,7 @@ pipeline
                 sh('''
                     echo 'some crazy line' > build/build.hex
                     git add build/build.hex
+                    git commit -m "[MasterJ:build] updated the build.hex file"
                 ''')      
             }
         }
@@ -81,15 +85,6 @@ pipeline
                 }
             }
         }
-        stage ('Commit')
-        {
-            steps
-            {
-                sh ('''
-                    git commit -m "[jenkins:add] Test successfull"
-                ''')
-            }
-        }
         stage ('Merge to Master')
         {
             options {
@@ -99,10 +94,11 @@ pipeline
             {
                 echo "Merge to Master"
                 sh('''
-                    git pull origin pipe
+                    git checkout -t master
+                    git merge j_pipe
+                    git commit -m "[MasterJ:merge] After successful build and test"
                     git push origin pipe
                 ''')
-                echo "Dance like mick jagger twice"
             }
         }
     }
@@ -111,6 +107,9 @@ pipeline
         always
         {
             sh('''
+                git branch -a
+                git branch -d tmp-pipe
+                git branch -a 
                 ls -la
                 ls build/ -la
             ''')
