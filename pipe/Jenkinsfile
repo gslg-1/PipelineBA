@@ -15,10 +15,7 @@ pipeline
             {
                 sh('''
                     git remote get-url --all origin
-                    
                     git branch -vv
-
-                    git checkout -B tmpPipe
                 ''')
             }
         }
@@ -92,9 +89,7 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git fetch --all
-                    git checkout pipe 
                     git merge origin/pipe
-                    git merge tmpPipe
                     git push origin pipe:pipe
                 ''')
             }
@@ -106,9 +101,9 @@ pipeline
         {
             sh('''
                 git branch -l
+                git branch -D master
                 git branch -D tmpPipe
                 git branch -D pipe
-                git branch -D master
                 git branch -l 
                 ls -la
                 ls build/ -la
