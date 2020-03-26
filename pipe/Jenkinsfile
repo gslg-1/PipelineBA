@@ -103,12 +103,9 @@ pipeline
         always
         {
             sh('''
-                git branch -l
                 git branch -D tmpB
                 git branch -D pipe
                 git branch -l 
-                ls -la
-                ls build/ -la
             ''')
         }
     }
