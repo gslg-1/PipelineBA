@@ -16,8 +16,8 @@ pipeline
                 sh('''
                     git branch -vv
                     git fetch --all
-                    git checkout -b pipe origin/pipe
-                    git checkout -b tmpB pipe
+                    git checkout -B pipe origin/pipe
+                    git checkout -B tmpB pipe
                     git branch -vv
                 ''')
             }
@@ -105,8 +105,6 @@ pipeline
         always
         {
             sh('''
-                git branch -D tmpB
-                git branch -D pipe
                 git branch -l 
             ''')
         }
