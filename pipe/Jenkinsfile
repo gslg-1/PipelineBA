@@ -94,12 +94,10 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git fetch --all
-                    git checkout pipe 
-                    git pull origin pipe"
-                    git merge tmpPipe
+                    git merge origin pipe"
                     git add .
                     git commit -m "[jenkins:merge] Merged with successful build"
-                    git push origin pipe:pipe
+                    git push origin tmpPipe:pipe
                 ''')
             }
         }
