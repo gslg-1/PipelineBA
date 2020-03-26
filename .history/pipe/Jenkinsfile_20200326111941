@@ -98,6 +98,7 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git pull origin pipe
+                    git log
                     git push origin pipe
                 ''')
                 echo "Dance like mick jagger twice"

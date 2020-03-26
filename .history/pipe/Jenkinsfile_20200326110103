@@ -34,7 +34,6 @@ pipeline
                 echo "Build started"     
                 sh('''
                     echo "Added by Pipe ###" >> build/build.hex
-                    git add build/build.hex
                 ''')      
             }
         }
@@ -84,7 +83,7 @@ pipeline
             steps
             {
                 sh ('''
-                    git commit -m "[jenkins:add] Test successfull"
+                    git commit -am "[jenkins:add] Test successfull"
                 ''')
             }
         }
@@ -98,6 +97,7 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git pull origin pipe
+                    git log
                     git push origin pipe
                 ''')
                 echo "Dance like mick jagger twice"
