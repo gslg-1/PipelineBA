@@ -4,7 +4,8 @@ pipeline
     agent any
     environment
     {
-        ORIGIN = "https://github.com/gslg-1/PipelineBA.git"
+        GHUB_ACCESS_TOKEN = credentials('bd8c6a20-d10c-417c-83f4-a2fdd5bca344')
+        ORIGIN = "https://gslg-1:$GHUB_ACCESS_TOKEN@github.com/gslg-1/PipelineBA.git"
     }
     stages
     {

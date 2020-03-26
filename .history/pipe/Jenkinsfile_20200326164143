@@ -4,7 +4,8 @@ pipeline
     agent any
     environment
     {
-        ORIGIN = "https://github.com/gslg-1/PipelineBA.git"
+        GHUB_ACCESS_TOKEN = credentials('bd8c6a20-d10c-417c-83f4-a2fdd5bca344')
+        ORIGIN = "https://gslg-1:$GHUB_ACCESS_TOKEN@github.com/gslg-1/PipelineBA.git"
     }
     stages
     {
@@ -13,10 +14,12 @@ pipeline
             steps
             {
                 sh('''
+                    git remote get-url --all origin
+                    
                     git branch -vv
+
                     git fetch --all
-                    git checkout -B pipe origin/pipe
-                    git checkout -B tmpB pipe
+                    git checkout -b tmpPipe origin/pipe
                     git branch -vv
                 ''')
             }
@@ -34,7 +37,7 @@ pipeline
             {
                 echo "Build started"
                 sh('''
-                    echo 'some crazy line\n' >> build/build.hex
+                    echo 'some crazy line' > build/build.hex
                     git add build/build.hex
                     git commit -m "[MasterJ:build] updated the build.hex file"
                 ''')      
@@ -91,10 +94,10 @@ pipeline
                 echo "Merge to Master"
                 sh('''
                     git fetch --all
-                    git checkout pipe
-                    git merge origin/pipe
-                    git merge tmpB
-                    git push origin pipe:pipe
+                    git merge origin pipe"
+                    git add .
+                    git commit -m "[jenkins:merge] Merged with successful build"
+                    git push origin tmpPipe:pipe
                 ''')
             }
         }
@@ -104,7 +107,13 @@ pipeline
         always
         {
             sh('''
+                git branch -l
+                git branch -D master
+                git branch -D tmpPipe
+                git branch -D pipe
                 git branch -l 
+                ls -la
+                ls build/ -la
             ''')
         }
     }
