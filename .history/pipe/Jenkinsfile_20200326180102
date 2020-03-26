@@ -38,8 +38,7 @@ pipeline
                     cd code/
                     make
                     cd ..
-                    git add build/.
-                    git commit -m "[MasterJ:Added the Build of <date><time>]"
+                    git add .
                 ''')      
             }
         }
