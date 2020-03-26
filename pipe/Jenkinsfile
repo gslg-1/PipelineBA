@@ -15,7 +15,7 @@ pipeline
             {
                 sh('''
                     git remote set-url origin $ORIGIN
-                    git fetch
+                    git fetch origin
                     git checkout pipe
                 ''')
             }
