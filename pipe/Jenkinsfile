@@ -31,10 +31,11 @@ pipeline
         {
             steps
             {
-                echo "Build started"     
+                echo "Build started" > build/build.hex
                 sh('''
                     echo 'Added by Pipe ###' > build/build.hex
-                    git add build/build.hex
+                    touch build/newBuildFile
+                    git add build/build.hex build/newBuildFile
                 ''')      
             }
         }
