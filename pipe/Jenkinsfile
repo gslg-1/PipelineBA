@@ -16,7 +16,6 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
-                    git commit -m "[MasterJ:Test] pipe entry"
                     git branch --show-current
                     git fetch 
                     git branch -a
