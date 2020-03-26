@@ -105,6 +105,7 @@ pipeline
                 git branch -l
                 git branch -D tmpPipe
                 git branch -D pipe
+                git branch -D master
                 git branch -l 
                 ls -la
                 ls build/ -la
