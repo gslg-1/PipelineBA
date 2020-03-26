@@ -16,7 +16,8 @@ pipeline
                 sh('''
                     git remote set-url origin $ORIGIN
                     git remote get-url --all origin
-                    git pull origin pipe
+                    git fetch
+                    git branch tmpPipe
                 ''')
             }
         }
@@ -36,8 +37,6 @@ pipeline
                     echo 'some crazy line' > build/build.hex
                     git add build/build.hex
                     git commit -m "[MasterJ:build] updated the build.hex file"
-                    git branch -a
-                    git push origin pipe
                 ''')      
             }
         }
@@ -91,6 +90,8 @@ pipeline
             {
                 echo "Merge to Master"
                 sh('''
+                    git checkout pipe
+                    git merge tmpPipe
                     git branch -a
                     git push origin pipe
                 ''')
@@ -103,6 +104,7 @@ pipeline
         {
             sh('''
                 git branch -a
+                git branch -d tmpPipe
                 git branch -a 
                 ls -la
                 ls build/ -la
