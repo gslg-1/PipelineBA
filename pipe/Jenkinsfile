@@ -103,8 +103,8 @@ pipeline
         {
             sh('''
                 git branch -l
-                git branch -d tmpPipe
-                git branch -d pipe
+                git branch -D tmpPipe
+                git branch -D pipe
                 git branch -l 
                 ls -la
                 ls build/ -la
